@@ -1,8 +1,5 @@
 import { FC, MouseEventHandler, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import cn from 'classnames';
-
-import { InterfaceName } from '../../App';
-
 import style from './hotwire.module.scss';
 
 interface IColors {
@@ -35,24 +32,21 @@ interface IDrawPoint {
 }
 
 const HotWire: FC<{}> = () => {
+    const [ component, setComponent ] = useState<string | null>(null);
     const [ result, setResult ] = useState<{ [ key: number ]: IDrawPoint }>( {} );
     const [ leftLine, setLeftLine ] = useState<string[]>( [] );
     const [ rightLine, setRightLine ] = useState<string[]>( [] );
     const [ selectedPin, setSelectedPin ] = useState<number | null>( null );
-
     const [ drawing, setDrawing ] = useState<boolean>( false );
     const [ drawingPoints, setDrawingPoints ] = useState<IDrawPoint>( { start: null, end: null, curveX: 0.5, curveY: 0.3, color: '#808080' } )
     const [ curveFactorX, setCurveFactorX ] = useState<number>( 0.5 );
     const [ curveFactorY, setCurveFactorY ] = useState<number>( 0.3 );
     const [ lineWidth, setLineWidth ] = useState<number>( 5 );
-
     const [ canvasSize, setCanvasSize ] = useState<ISize>( { width: 0, height: 0 } );
     const [ prevCanvasSize, setPrevCanvasSize ] = useState<ISize>( { width: 0, height: 0 } );
-
     const drawingCanvasRef = useRef<HTMLCanvasElement | null>( null );
     const resultCanvasRef = useRef<HTMLCanvasElement | null>( null );
     const resizeTimeoutRef = useRef<NodeJS.Timeout | null>( null );
-
     const colors: IColors = useMemo( () => ( {
         1: { id: 1, color: [ '#7E9570', '#2C6907' ] },
         2: { id: 2, color: [ '#1FFF1B', '#138511' ] },
@@ -377,8 +371,8 @@ const HotWire: FC<{}> = () => {
 
     const handleKeyUp = useCallback( ( e: any ) => {
         if ( e.keyCode === 27 ) {
-            console.log( InterfaceName.HotWire, 'exit' )
-   /*       --   EventManager.emitServer( InterfaceName.HotWire, 'exit' ) */
+            console.log( 'hotWire', 'exit' )
+            setComponent(null)
         }
     }, [] )
 
@@ -445,8 +439,8 @@ const HotWire: FC<{}> = () => {
 
     useEffect( () => {
         if ( isGameFinished ) {
-            console.log( InterfaceName.HotWire, 'gameFinished' );
-       /*      EventManager.emitServer( InterfaceName.HotWire, 'gameFinished' ) */
+            console.log( 'hotWire', 'gameFinished' );
+            setComponent(null)
         }
     }, [ isGameFinished ] )
 

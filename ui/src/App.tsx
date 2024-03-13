@@ -1,27 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import HotWire from './pages/HotWire';
+import { useNuiEvent } from './hooks/useNuiEvent';
 
+function App () {
+  const [ component, setComponent ] = useState<string | null>(null);
 
-export enum InterfaceName {
-  HotWire = 'hotWire',
-}
-
-const App = () => {
-  const [ component, setComponent ] = useState<InterfaceName | null>( InterfaceName.HotWire );
-
-  useEffect( () => {
-    /* EventManager.addHandler( 'router', 'setComponent', ( componentPage: InterfaceName ) => {
-      setComponent( componentPage );
-    } )
-    EventManager.stopAddingHandlers( 'router' );
-    return () => {
-      EventManager.removeTargetHandlers( 'router' );
-    }; */
-  }, [] )
+  useNuiEvent('open', (data) => {
+    console.log('open')
+    setComponent('hotWire');
+  });
 
   return (
     <>
-      {component === InterfaceName.HotWire && <HotWire />}
+      {component === 'hotWire' && <HotWire />}
     </>
   );
 }
