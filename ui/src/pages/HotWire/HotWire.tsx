@@ -1,5 +1,4 @@
 import { FC, MouseEventHandler, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import EventManager from 'utils/eventManager';
 import cn from 'classnames';
 
 import { InterfaceName } from '../../App';
@@ -379,7 +378,7 @@ const HotWire: FC<{}> = () => {
     const handleKeyUp = useCallback( ( e: any ) => {
         if ( e.keyCode === 27 ) {
             console.log( InterfaceName.HotWire, 'exit' )
-            EventManager.emitServer( InterfaceName.HotWire, 'exit' )
+   /*       --   EventManager.emitServer( InterfaceName.HotWire, 'exit' ) */
         }
     }, [] )
 
@@ -447,7 +446,7 @@ const HotWire: FC<{}> = () => {
     useEffect( () => {
         if ( isGameFinished ) {
             console.log( InterfaceName.HotWire, 'gameFinished' );
-            EventManager.emitServer( InterfaceName.HotWire, 'gameFinished' )
+       /*      EventManager.emitServer( InterfaceName.HotWire, 'gameFinished' ) */
         }
     }, [ isGameFinished ] )
 

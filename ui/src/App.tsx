@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-import EventManager from 'utils/eventManager';
-
-import HotWire from 'pages/HotWire';
+import HotWire from './pages/HotWire';
 
 
 export enum InterfaceName {
@@ -12,13 +10,13 @@ const App = () => {
   const [ component, setComponent ] = useState<InterfaceName | null>( InterfaceName.HotWire );
 
   useEffect( () => {
-    EventManager.addHandler( 'router', 'setComponent', ( componentPage: InterfaceName ) => {
+    /* EventManager.addHandler( 'router', 'setComponent', ( componentPage: InterfaceName ) => {
       setComponent( componentPage );
     } )
     EventManager.stopAddingHandlers( 'router' );
     return () => {
       EventManager.removeTargetHandlers( 'router' );
-    };
+    }; */
   }, [] )
 
   return (
